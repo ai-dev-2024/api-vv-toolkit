@@ -1,0 +1,17 @@
+# Authored, recorded model-output fixtures. These are not captured live-model output.
+REQ-010:
+  proposals:
+    - name: Read a missing widget
+      operation_id: getWidget
+      parameters: {path: {widget_id: 999}}
+      body: null
+      has_body: false
+      expected_status: '404'
+      negative: true
+    - name: Invented operation must be rejected
+      operation_id: findMissingWidget
+      parameters: {}
+      body: null
+      has_body: false
+      expected_status: '404'
+      negative: true

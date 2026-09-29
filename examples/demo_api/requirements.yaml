@@ -1,0 +1,62 @@
+requirements:
+  - id: REQ-001
+    text: The health endpoint returns its status and service version header.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: health, responses: ['200'], checks: [happy-path]}]
+  - id: REQ-002
+    text: A valid widget can be created.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: createWidget, responses: ['201'], checks: [happy-path]}]
+  - id: REQ-003
+    text: A widget name longer than eight characters is rejected.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: createWidget, responses: ['422'], checks: ['boundary:name:maxLength:above']}]
+  - id: REQ-004
+    text: A widget must include a name.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: createWidget, responses: ['422'], checks: ['required:name']}]
+  - id: REQ-005
+    text: A widget name must be a string.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: createWidget, responses: ['422'], checks: ['wrong-type:name']}]
+  - id: REQ-006
+    text: Widget roles are restricted to the documented enum.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: createWidget, responses: ['422'], checks: ['enum:role']}]
+  - id: REQ-007
+    text: The secure endpoint rejects unauthenticated requests.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: secure, responses: ['401'], checks: [auth-required]}]
+  - id: REQ-008
+    text: Deleting a widget returns 204 with no body.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: deleteWidget, responses: ['204'], checks: [happy-path]}]
+  - id: REQ-009
+    text: Reading a widget returns a schema-valid representation.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: getWidget, responses: ['200'], checks: [happy-path]}]
+  - id: REQ-010
+    text: Reading absent widget 999 returns a documented not-found response.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: getWidget, responses: ['404'], checks: [llm-scenario]}]
+  - id: REQ-011
+    text: A one-character widget name is accepted.
+    priority: must
+    verification_method: test
+    covers: [{operation_id: createWidget, responses: ['201'], checks: ['boundary:name:minLength:at']}]
+  - id: REQ-012
+    text: The health endpoint responds within one second in this local demo.
+    priority: should
+    verification_method: test
+    latency_ms: 1000
+    covers: [{operation_id: health, responses: ['200'], checks: [happy-path]}]

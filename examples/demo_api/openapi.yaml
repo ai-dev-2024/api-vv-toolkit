@@ -1,0 +1,114 @@
+openapi: 3.1.0
+info:
+  title: Widget demo
+  version: 1.0.0
+paths:
+  /health:
+    get:
+      operationId: health
+      responses:
+        '200':
+          description: Healthy
+          headers:
+            X-Service-Version:
+              required: true
+              schema: {type: string, const: '1.0'}
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                additionalProperties: false
+                properties:
+                  status: {type: string, const: ok}
+  /widgets:
+    post:
+      operationId: createWidget
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/NewWidget'}
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Widget'}
+        '422': {$ref: '#/components/responses/Invalid'}
+  /widgets/{widget_id}:
+    parameters:
+      - name: widget_id
+        in: path
+        required: true
+        example: 1
+        schema: {type: integer}
+    get:
+      operationId: getWidget
+      responses:
+        '200':
+          description: Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Widget'}
+        '404':
+          description: Missing
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+        '422': {$ref: '#/components/responses/Invalid'}
+    delete:
+      operationId: deleteWidget
+      responses:
+        '204': {description: Deleted, no response body}
+        '422': {$ref: '#/components/responses/Invalid'}
+  /secure:
+    get:
+      operationId: secure
+      security: [{DemoKey: []}]
+      responses:
+        '200':
+          description: Authorized
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [authorized]
+                properties:
+                  authorized: {type: boolean, const: true}
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Error'}
+components:
+  securitySchemes:
+    DemoKey: {type: apiKey, in: header, name: X-API-Key}
+  responses:
+    Invalid:
+      description: Invalid request
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+  schemas:
+    NewWidget:
+      type: object
+      required: [name, role, age]
+      additionalProperties: false
+      properties:
+        name: {type: string, minLength: 1, maxLength: 8, example: widget}
+        role: {type: string, enum: [reader, writer], default: reader}
+        age: {type: integer, minimum: 0, maximum: 120, default: 30}
+    Widget:
+      type: object
+      required: [id, name]
+      additionalProperties: false
+      properties:
+        id: {type: integer}
+        name: {type: string}
+    Error:
+      type: object
+      required: [error]
+      additionalProperties: false
+      properties:
+        error: {type: string}

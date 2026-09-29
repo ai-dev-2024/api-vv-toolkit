@@ -1,0 +1,9 @@
+concurrency: 4
+timeout_seconds: 5
+retries: 0
+credentials_env:
+  DemoKey: API_VV_DEMO_KEY
+llm:
+  provider: mock
+  model: mock-v1
+  fixtures: mock_responses.yaml
