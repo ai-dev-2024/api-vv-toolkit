@@ -40,7 +40,8 @@ jobs:
       # scripts/demo.py exits non-zero unless the gate fails on exactly REQ-003 and REQ-008.
       - run: python scripts/demo.py
       - name: Check the gate named exactly the two seeded defects
-        run: grep -Fx 'Gate: FAIL (REQ-003, REQ-008)' runs/demo/cli-output.txt
+        run: |
+          grep -Fx 'Gate: FAIL (REQ-003, REQ-008)' runs/demo/cli-output.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
