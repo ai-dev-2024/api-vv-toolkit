@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here. The project uses semantic versioning.
 
+## [1.1.0] - 2026-10-03
+
+### Fixed
+
+- Execution timeouts and per-requirement latency budgets must be finite numbers. `NaN` and
+  infinity are now rejected when the config or requirements file is loaded; an infinite value
+  previously passed validation and effectively switched the limit off.
+
+### Added
+
+- Tests for the finite-number checks.
+- CI publishes the seeded-defect demo report (HTML, CSV matrix, JUnit) to GitHub Pages.
+- Package metadata: author and project URLs.
+
 ## [1.0.0] - 2026-09-29
 
 ### Added

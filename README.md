@@ -1,11 +1,20 @@
 # api-vv-toolkit
 
 [![CI](https://github.com/muhib-karim/api-vv-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/muhib-karim/api-vv-toolkit/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/muhib-karim/api-vv-toolkit)](https://github.com/muhib-karim/api-vv-toolkit/releases)
+![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg)
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+[![Demo report](https://img.shields.io/badge/demo-live%20report-brightgreen.svg)](https://muhib-karim.github.io/api-vv-toolkit/)
 
 api-vv-toolkit reads an OpenAPI contract and a list of written requirements. It generates API
 tests from them, runs the tests against a live service and reports which requirements are
 verified, which failed and which have no test at all. Every test records the requirement it
 checks, so a failure points back to what the service was supposed to do.
+
+**Live demo:** [the HTML traceability report](https://muhib-karim.github.io/api-vv-toolkit/) from the
+seeded-defect demo below, rebuilt by CI from `main` on every push
+([CSV matrix](https://muhib-karim.github.io/api-vv-toolkit/traceability.csv),
+[JUnit XML](https://muhib-karim.github.io/api-vv-toolkit/junit.xml)).
 
 An optional LLM step can suggest extra test scenarios. Its suggestions are checked against the
 spec before they enter the plan, and the prompt, raw reply and accept/reject reason are stored
