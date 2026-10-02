@@ -75,7 +75,7 @@ class Requirement(Model):
     priority: Priority
     verification_method: Literal["test", "demonstration", "inspection", "analysis"]
     covers: list[Coverage] = Field(min_length=1)
-    latency_ms: float | None = Field(default=None, gt=0)
+    latency_ms: float | None = Field(default=None, gt=0, allow_inf_nan=False)
 
 
 class Requirements(Model):
@@ -156,12 +156,12 @@ class LLMConfig(Model):
     base_url_env: str = "API_VV_LLM_BASE_URL"
     api_key_env: str = "API_VV_LLM_API_KEY"
     fixtures: str | None = None
-    timeout_seconds: float = Field(default=30, gt=0)
+    timeout_seconds: float = Field(default=30, gt=0, allow_inf_nan=False)
 
 
 class Config(Model):
     concurrency: int = Field(default=5, ge=1, le=100)
-    timeout_seconds: float = Field(default=10, gt=0)
+    timeout_seconds: float = Field(default=10, gt=0, allow_inf_nan=False)
     retries: int = Field(default=0, ge=0, le=5)
     credentials_env: dict[str, str] = Field(default_factory=dict)
     # Pydantic copies mutable defaults per instance.

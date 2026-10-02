@@ -1,6 +1,6 @@
 # api-vv-toolkit
 
-[![CI](https://github.com/ai-dev-2024/api-vv-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/ai-dev-2024/api-vv-toolkit/actions/workflows/ci.yml)
+[![CI](https://github.com/muhib-karim/api-vv-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/muhib-karim/api-vv-toolkit/actions/workflows/ci.yml)
 
 api-vv-toolkit reads an OpenAPI contract and a list of written requirements. It generates API
 tests from them, runs the tests against a live service and reports which requirements are
